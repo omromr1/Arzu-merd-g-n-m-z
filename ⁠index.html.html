@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arzu & Ömer - Düğün Davetiyesi</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:Georgia,serif;
+    background:linear-gradient(180deg,#fffaf5,#f5e7d3);
+    color:#5a4632;
+    text-align:center;
+}
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:30px 20px;
+}
+h1{
+    font-size:52px;
+    color:#8b5e3c;
+    margin:10px 0;
+}
+h2{
+    color:#8b5e3c;
+    margin-bottom:10px;
+}
+.card{
+    background:#fff;
+    width:min(92%,700px);
+    margin:20px auto;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 8px 22px rgba(0,0,0,.12);
+}
+.btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:12px 24px;
+    border-radius:30px;
+    background:#8b5e3c;
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+}
+.countdown{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+.time-box{
+    background:#8b5e3c;
+    color:#fff;
+    width:90px;
+    padding:16px 10px;
+    border-radius:14px;
+}
+.time-box span{
+    display:block;
+    font-size:30px;
+    font-weight:bold;
+    line-height:1;
+}
+.time-box small{
+    display:block;
+    margin-top:8px;
+    font-size:14px;
+}
+input,select{
+    width:100%;
+    max-width:360px;
+    padding:12px;
+    margin:8px auto;
+    border:1px solid #d7c2a6;
+    border-radius:10px;
+    display:block;
+    font-size:16px;
+}
+button{
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+}
+footer{
+    padding:30px 20px 50px;
+    color:#7a6754;
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+    <p>🌹 Düğünümüze Davetlisiniz 🌹</p>
+    <h1>Arzu &amp; Ömer</h1>
+    <p>Hayatımızı birleştireceğimiz bu en özel ve mutlu günümüzde sizleri aramızda görmekten büyük mutluluk duyarız.</p>
+    <a class="btn" href="#tarih">Detaylar</a>
+</section>
+
+<div class="card" id="tarih">
+    <h2>📅 1 Eylül 2026 Salı - Saat 19:00</h2>
+    <p>Düğünümüze kalan süre</p>
+
+    <div class="countdown">
+        <div class="time-box">
+            <span id="days">0</span>
+            <small>Gün</small>
+        </div>
+        <div class="time-box">
+            <span id="hours">0</span>
+            <small>Saat</small>
+        </div>
+        <div class="time-box">
+            <span id="minutes">0</span>
+            <small>Dakika</small>
+        </div>
+        <div class="time-box">
+            <span id="seconds">0</span>
+            <small>Saniye</small>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>📍 Düğün Mekanı</h2>
+    <p><strong>Türk Metal Sendikası Merinos Sosyal Tesisleri</strong></p>
+    <p>Gaziakdemir Mah. 5. Nilüfer Cad. No:2<br>Osmangazi / BURSA</p>
+    <a class="btn" target="_blank"
+       href="https://maps.google.com/?q=Türk+Metal+Sendikası+Merinos+Sosyal+Tesisleri+Bursa">
+       Haritada Aç
+    </a>
+</div>
+
+<div class="card">
+    <h2>👨‍👩‍👧‍👦 Aileler</h2>
+    <p><strong>Gelin Ailesi:</strong> Kıymet &amp; Süleyman (Merhum) Bozkurt</p>
+    <p><strong>Damat Ailesi:</strong> Halide Abide &amp; Ali Özmen</p>
+</div>
+
+<div class="card">
+    <h2>💌 Katılım Bildirimi (LCV)</h2>
+
+    <input id="ad" type="text" placeholder="Ad Soyad">
+    <select id="durum">
+        <option>Katılıyorum</option>
+        <option>Katılamıyorum</option>
+    </select>
+    <input id="kisi" type="number" min="1" value="1" placeholder="Kişi Sayısı">
+
+    <button class="btn" onclick="gonder()">WhatsApp ile Gönder</button>
+</div>
+
+<footer>
+    <p>Sevgiyle bekliyoruz 💍</p>
+    <p><strong>Arzu &amp; Ömer</strong></p>
+</footer>
+
+<script>
+const hedef = new Date("2026-09-01T19:00:00").getTime();
+
+const timer = setInterval(function(){
+
+    const simdi = new Date().getTime();
+    const fark = hedef - simdi;
+
+    if(fark <= 0){
+        clearInterval(timer);
+        document.querySelector(".countdown").innerHTML =
+            "<h2>🎉 Bugün Düğün Günümüz! 💍</h2>";
+        return;
+    }
+
+    document.getElementById("days").textContent =
+        Math.floor(fark / (1000*60*60*24));
+
+    document.getElementById("hours").textContent =
+        Math.floor((fark % (1000*60*60*24)) / (1000*60*60));
+
+    document.getElementById("minutes").textContent =
+        Math.floor((fark % (1000*60*60)) / (1000*60));
+
+    document.getElementById("seconds").textContent =
+        Math.floor((fark % (1000*60)) / 1000);
+
+},1000);
+
+function gonder(){
+
+    const ad = document.getElementById("ad").value.trim();
+
+    if(!ad){
+        alert("Lütfen ad soyad giriniz.");
+        return;
+    }
+
+    const durum = document.getElementById("durum").value;
+    const kisi = document.getElementById("kisi").value;
+
+    const mesaj =
+`Merhaba, Düğün LCV:%0AAd Soyad: ${ad}%0ADurum: ${durum}%0AKişi Sayısı: ${kisi}`;
+
+    window.open("https://wa.me/905340122000?text=" + mesaj, "_blank");
+}
+</script>
+
+</body>
+</html>
